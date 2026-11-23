@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Sanctuary & MindClarity</title>
+<style>
+:root{--bg:#F7F6F2;--bg2:#EFECE4;--card:#fff;--sage-t:#EDF4F1;--lav-t:#F1EFF7;--amb-t:#FDF6EC;--tx:#2C3531;--tx2:#53605B;--mu:#6B7872;--sage:#4A7C6F;--sage-b:#B9D3CB;--lav:#6B628E;--lav-b:#C9C3DE;--amb:#8F5A24;--amb-b:#EED8B8;--bd:#E3DFD5;--on:#fff;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#171C1A;--bg2:#1F2523;--card:#222927;--sage-t:#26352F;--lav-t:#2A2837;--amb-t:#33291C;--tx:#EAF0ED;--tx2:#B8C4BE;--mu:#93A19A;--sage:#7FBBA9;--sage-b:#3E5E54;--lav:#A99FD0;--lav-b:#4A4466;--amb:#E5B67C;--amb-b:#5C4727;--bd:#333C39;--on:#12201B;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#171C1A;--bg2:#1F2523;--card:#222927;--sage-t:#26352F;--lav-t:#2A2837;--amb-t:#33291C;--tx:#EAF0ED;--tx2:#B8C4BE;--mu:#93A19A;--sage:#7FBBA9;--sage-b:#3E5E54;--lav:#A99FD0;--lav-b:#4A4466;--amb:#E5B67C;--amb-b:#5C4727;--bd:#333C39;--on:#12201B;color-scheme:dark}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--tx);line-height:1.6;min-height:100vh}
+h1,h2,h3,.serif{font-family:Georgia,"Times New Roman",serif;font-weight:600}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--bg);border-bottom:1px solid var(--bd)}
+.wrap{max-width:960px;margin:0 auto;padding:0 16px}
+.top{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 0 6px}
+.brand{font-size:1.05rem}.brand small{display:block;font-family:system-ui,sans-serif;font-weight:400;font-size:.75rem;color:var(--mu)}
+nav{display:flex;gap:6px;overflow-x:auto;padding:4px 0 10px}
+nav button{flex:0 0 auto;border:1.5px solid transparent;background:var(--bg2);color:var(--tx2);font:600 .82rem system-ui,sans-serif;padding:8px 12px;border-radius:10px;cursor:pointer}
+nav button[aria-selected=true]{background:var(--card);color:var(--sage);border-color:var(--sage-b)}
+main{padding:24px 0 56px}
+.panel{display:none}.panel.on{display:block}
+.intro{text-align:center;max-width:620px;margin:0 auto 22px}.intro h1{font-size:clamp(1.5rem,3.4vw,2rem);margin-bottom:6px}.intro p{color:var(--tx2);font-size:.95rem}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:18px;padding:22px;margin-bottom:18px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}@media(max-width:780px){.grid2{grid-template-columns:1fr}}
+.card h2{font-size:1.2rem;margin-bottom:4px}.sub{color:var(--tx2);font-size:.88rem;margin-bottom:14px}
+.btn{font:600 .9rem system-ui,sans-serif;border:1.5px solid var(--bd);background:var(--card);color:var(--tx2);padding:10px 16px;border-radius:10px;cursor:pointer}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.btn.s{background:var(--sage);border-color:var(--sage);color:var(--on)}.btn.l{background:var(--lav);border-color:var(--lav);color:var(--on)}
+:focus-visible{outline:3px solid var(--lav);outline-offset:2px}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.aff{text-align:center;background:var(--sage-t);border-color:var(--sage-b)}
+.aff blockquote{font-family:Georgia,serif;font-size:clamp(1.15rem,2.4vw,1.45rem);min-height:84px;display:flex;align-items:center;justify-content:center;margin:12px 0 16px}
+.tag{display:inline-block;font-size:.76rem;font-weight:600;padding:3px 10px;border-radius:99px;background:var(--card);border:1px solid var(--bd);color:var(--tx2)}
+.seg{display:inline-flex;background:var(--bg2);padding:3px;border-radius:9px}.seg button{border:0;background:none;font:600 .78rem system-ui,sans-serif;color:var(--tx2);padding:5px 10px;border-radius:7px;cursor:pointer}.seg button.on{background:var(--card);color:var(--sage)}
+.stage{display:flex;justify-content:center;padding:18px 0}
+.halo{width:190px;height:190px;border-radius:50%;background:var(--sage-t);display:grid;place-items:center;transform:scale(.92);transition:transform 1s ease-in-out}
+.orb{width:142px;height:142px;border-radius:50%;background:var(--sage-b);border:2px solid var(--sage);display:grid;place-content:center;text-align:center;transform:scale(.76);transition:transform 1s ease-in-out}
+.orb b{font-family:Georgia,serif}.orb span{font-size:.85rem;color:var(--sage);font-weight:700}
+@media(prefers-reduced-motion:reduce){.halo,.orb{transition:none!important}}
+.items{display:grid;gap:8px}
+.item{display:flex;gap:10px;align-items:center;text-align:left;width:100%;background:var(--bg);border:1.5px solid var(--bd);border-radius:12px;padding:10px 12px;color:var(--tx);font:inherit;font-size:.88rem;cursor:pointer}
+.item.ck{background:var(--sage-t);border-color:var(--sage-b);color:var(--sage)}.item.ck .t{text-decoration:line-through}
+.bar{height:6px;background:var(--bg2);border-radius:9px;overflow:hidden;margin-bottom:12px}.bar i{display:block;height:100%;background:var(--sage);width:0;transition:width .3s}
+.ok{display:none;margin-top:10px;padding:10px;border-radius:10px;background:var(--sage-t);color:var(--sage);font-weight:600;font-size:.85rem;text-align:center}.ok.on{display:block}
+.moods{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:12px}@media(max-width:620px){.moods{grid-template-columns:repeat(2,1fr)}}
+.moods button{background:var(--bg);border:1.5px solid var(--bd);border-radius:12px;padding:10px;color:var(--tx);font:600 .82rem system-ui,sans-serif;cursor:pointer;display:grid;gap:2px;justify-items:center}
+.moods button.on{border-color:var(--sage);background:var(--sage-t)}
+.note{display:none;border-left:3px solid var(--sage);background:var(--sage-t);padding:10px 14px;border-radius:0 10px 10px 0;font-size:.88rem;margin-bottom:14px}.note.on{display:block}
+input[type=text],select{width:100%;background:var(--bg);border:1.5px solid var(--bd);border-radius:10px;padding:11px 13px;font:inherit;font-size:.92rem;color:var(--tx)}
+label{font-size:.78rem;font-weight:700;color:var(--tx2);display:block;margin-bottom:4px}
+.form{display:flex;gap:8px;margin-bottom:14px}@media(max-width:560px){.form{flex-direction:column}}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px}
+.mini{background:var(--bg);border:1px solid var(--bd);border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:8px;font-size:.9rem}
+.mini .meta{display:flex;justify-content:space-between;align-items:center;gap:6px;border-top:1px solid var(--bd);padding-top:8px;font-size:.76rem;color:var(--mu)}
+.x{border:0;background:none;color:var(--mu);cursor:pointer;padding:3px 7px;border-radius:6px;font-size:.85rem}
+.cue{font-size:.8rem;color:var(--sage);background:var(--sage-t);padding:7px 10px;border-radius:9px}
+.timer{display:grid;grid-template-columns:1.2fr .8fr;gap:20px;align-items:center}@media(max-width:700px){.timer{grid-template-columns:1fr;text-align:center}.timer .row{justify-content:center}}
+.pre{border:1.5px solid var(--bd);background:var(--card);color:var(--tx2);font:600 .83rem system-ui,sans-serif;padding:6px 13px;border-radius:99px;cursor:pointer}.pre.on{background:var(--lav);border-color:var(--lav);color:var(--on)}
+.ring{position:relative;display:grid;place-items:center}.ring svg{width:190px;height:190px;transform:rotate(-90deg)}
+.ring .c{position:absolute;text-align:center}.ring .d{font:600 2rem Georgia,serif}.ring small{display:block;font-size:.76rem;font-weight:600;color:var(--lav)}
+.warn{background:var(--amb-t);border:1px solid var(--amb-b);border-radius:14px;padding:12px 16px;margin-bottom:18px;font-size:.87rem}
+.q{background:var(--bg);border:1px solid var(--bd);border-radius:14px;padding:18px;margin:14px 0}.q p{font-weight:600;margin:8px 0 14px}
+.likert{display:grid;grid-template-columns:repeat(5,1fr);gap:7px}@media(max-width:640px){.likert{grid-template-columns:1fr}}
+.likert button{background:var(--card);border:1.5px solid var(--bd);border-radius:10px;padding:10px 6px;color:var(--tx);font:600 .82rem system-ui,sans-serif;cursor:pointer;min-height:46px}
+.likert button.on{border-color:var(--sage);background:var(--sage-t);color:var(--sage)}
+.lav .likert button.on{border-color:var(--lav);background:var(--lav-t);color:var(--lav)}
+.lav .bar i{background:var(--lav)}
+.dots{display:flex;flex-wrap:wrap;gap:5px;margin-top:10px}.dots button{width:28px;height:28px;border-radius:8px;border:1px solid var(--bd);background:var(--bg);color:var(--mu);font:700 .75rem system-ui,sans-serif;cursor:pointer}.dots .a{background:var(--sage-t);color:var(--sage)}.dots .cur{background:var(--sage);color:var(--on)}
+.lav .dots .a{background:var(--lav-t);color:var(--lav)}.lav .dots .cur{background:var(--lav);color:var(--on)}
+.nav2{display:flex;justify-content:space-between;gap:10px;margin-top:14px}
+.err{display:none;color:#B3402F;font-size:.85rem;margin-top:10px}.err.on{display:block}
+@media(prefers-color-scheme:dark){.err{color:#F0A394}}
+.hero{padding:20px;border-radius:14px;background:var(--sage-t);border:1px solid var(--sage-b);margin-bottom:18px}.lav .hero{background:var(--lav-t);border-color:var(--lav-b)}
+.hero h3{font-size:1.3rem;margin:4px 0 8px}
+.sc{display:flex;justify-content:space-between;font-weight:700;font-size:.9rem;margin:12px 0 4px}
+.help{display:grid;grid-template-columns:1fr 1fr;gap:16px}@media(max-width:720px){.help{grid-template-columns:1fr}}
+.help a.call{display:inline-block;margin:6px 6px 0 0;padding:6px 12px;border-radius:8px;border:1px solid var(--sage-b);background:var(--sage-t);color:var(--sage);font-weight:700;font-size:.85rem;text-decoration:none}
+.chat{padding:0;overflow:hidden}.chat .msgs{height:min(420px,55vh);overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:12px}
+.m{max-width:88%;display:flex;flex-direction:column;gap:6px}.m.u{align-self:flex-end;align-items:flex-end}.m.b{align-self:flex-start}
+.bub{padding:11px 15px;border-radius:15px;font-size:.9rem;word-break:break-word}.u .bub{background:var(--sage);color:var(--on)}.b .bub{background:var(--bg);border:1px solid var(--bd)}
+.chip{border:1px solid var(--sage-b);background:var(--sage-t);color:var(--sage);font:600 .76rem system-ui,sans-serif;padding:5px 11px;border-radius:99px;cursor:pointer;margin:0 6px 0 0}
+.starters{display:flex;gap:6px;overflow-x:auto;padding:10px 14px;border-top:1px solid var(--bd);background:var(--bg)}.starters .chip{white-space:nowrap;flex:0 0 auto;color:var(--tx2);background:var(--card);border-color:var(--bd)}
+.cin{display:flex;gap:8px;padding:12px 14px;border-top:1px solid var(--bd)}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translate(-50%,12px);background:var(--tx);color:var(--bg);padding:10px 16px;border-radius:10px;font-size:.85rem;opacity:0;pointer-events:none;transition:.25s;z-index:50}.toast.on{opacity:1;transform:translate(-50%,0)}
+footer{border-top:1px solid var(--bd);background:var(--bg2);padding:18px 16px;text-align:center;font-size:.8rem;color:var(--mu)}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <div class="top"><div class="serif brand">Sanctuary & MindClarity<small>Calm support & private self-reflection</small></div>
+  <button class="btn" onclick="show('support')">24/7 Help</button></div>
+  <nav id="nav" role="tablist" aria-label="Sections"></nav>
+</div></header>
+
+<main class="wrap">
+<!-- SANCTUARY -->
+<section id="p-sanctuary" class="panel on">
+  <div class="intro"><h1>Take a slow breath. You are safe here.</h1><p>Move at your own pace. This space is yours.</p></div>
+  <div class="card aff"><div class="row" style="justify-content:space-between"><span class="tag">Gentle reminder</span><span class="tag" id="affCat"></span></div>
+    <blockquote id="affQ"></blockquote>
+    <div class="row" style="justify-content:center"><button class="btn s" onclick="nextAff()">New affirmation</button><button class="btn" onclick="copyText(el('affQ').textContent,'Copied')">Copy</button></div></div>
+  <div class="grid2">
+    <div class="card" id="breathCard"><div class="row" style="justify-content:space-between"><h2>Guided breathing</h2>
+      <div class="seg"><button id="bm478" class="on" onclick="setBreath('478')">4-7-8</button><button id="bmbox" onclick="setBreath('box')">Box</button></div></div>
+      <p class="sub" id="bDesc"></p>
+      <div class="stage"><div class="halo" id="halo"><div class="orb" id="orb"><b id="bPhase">Ready</b><span id="bTime">Press start</span></div></div></div>
+      <button class="btn s" style="width:100%" id="bBtn" onclick="toggleBreath()">Start breathing</button></div>
+    <div class="card"><div class="row" style="justify-content:space-between"><h2>5-4-3-2-1 grounding</h2><button class="btn" onclick="resetGround()">Reset</button></div>
+      <p class="sub">Tap each step as you notice your surroundings.</p>
+      <div class="bar"><i id="gBar"></i></div><div class="items" id="gList"></div><div class="ok" id="gOk">You are here, safe in this moment.</div></div>
+  </div>
+  <div class="card"><h2>Mood check-in & tiny glimmers</h2><p class="sub">No pressure to feel cheerful. Check in, then note one small comfort from today. Saved in this browser only.</p>
+    <div class="moods" id="moods"></div><div class="note" id="moodNote"></div>
+    <form class="form" onsubmit="addGlim(event)"><input type="text" id="glimIn" maxlength="240" required aria-label="Tiny glimmer" placeholder="One tiny glimmer (warm tea, a quiet song, water)…"><button class="btn s" type="submit">Save glimmer</button></form>
+    <div class="cards" id="glimList"></div></div>
+</section>
+
+<!-- MEDITATION -->
+<section id="p-meditation" class="panel">
+  <div class="intro"><h1>Meditation & grounded manifestation</h1><p>Gentle stillness, and hopeful intentions paired with small real-world steps.</p></div>
+  <div class="card timer"><div><h2>Meditation timer</h2><p class="sub">Pick a short session. A soft chime plays at the end.</p>
+    <div class="row" id="presets" style="margin-bottom:14px"></div>
+    <div class="row"><button class="btn l" id="mStart" onclick="toggleMed()">Start session</button><button class="btn" onclick="resetMed()">Reset</button><button class="btn" id="mSnd" onclick="toggleSnd()" aria-pressed="true">Chime on</button></div></div>
+    <div class="ring"><svg viewBox="0 0 180 180" aria-hidden="true"><circle cx="90" cy="90" r="78" fill="none" stroke="var(--bg2)" stroke-width="8"/><circle id="mRing" cx="90" cy="90" r="78" fill="none" stroke="var(--lav)" stroke-width="8" stroke-linecap="round" stroke-dasharray="490.09" stroke-dashoffset="0"/></svg>
+    <div class="c"><div class="d" id="mDisp">01:00</div><small id="mStat">Ready when you are</small></div></div></div>
+  <div class="card"><h2>Practical meditation tips</h2><p class="sub">Meditation is not emptying your mind. It is coming back kindly when attention wanders.</p><div class="cards" id="tips"></div></div>
+  <div class="card"><h2>Intention studio</h2><p class="sub">Write a present-tense intention, pair it with one tiny step, and track repetitions. Saved in this browser only.</p>
+    <div class="cards" id="guides" style="margin-bottom:18px"></div>
+    <form onsubmit="addInt(event)"><div class="grid2" style="gap:12px;margin-bottom:12px">
+      <div><label for="iTech">Technique</label><select id="iTech"></select></div>
+      <div><label for="iAct">One tiny action today (optional)</label><input type="text" id="iAct" maxlength="140" placeholder="e.g., 10 quiet minutes sketching"></div></div>
+      <div style="margin-bottom:12px"><label for="iTxt">Your intention</label><input type="text" id="iTxt" maxlength="240" required placeholder="I am welcoming steady calm and clarity into my days."></div>
+      <button class="btn l" type="submit">Save intention</button></form>
+    <div class="cards" id="ints" style="margin-top:16px"></div></div>
+</section>
+
+<!-- ADHD -->
+<section id="p-adhd" class="panel">
+  <div class="intro"><h1>ADHD self-reflection screener</h1><p>Patterns in focus, task initiation, organization and restlessness over the past 6 months.</p></div>
+  <div class="warn"><strong>Educational tool only.</strong> Adapted from ASRS-style themes. This is not a diagnosis. Share your summary with a licensed clinician for a proper evaluation.</div>
+  <div class="card" id="m-adhd"></div>
+</section>
+
+<!-- OCD -->
+<section id="p-ocd" class="panel">
+  <div class="intro"><h1>OCD self-reflection screener</h1><p>Intrusive thoughts, repetitive urges or rituals, and the time they take, over the past month.</p></div>
+  <div class="warn"><strong>Educational tool only.</strong> This is not a diagnosis. Share your summary with a licensed clinician for a proper evaluation.</div>
+  <div class="card lav" id="m-ocd"></div>
+</section>
+
+<!-- CHAT -->
+<section id="p-chat" class="panel">
+  <div class="intro"><h1>Talk through what’s on your mind</h1><p>Ask about the screeners, meditation or intentions, or find a calming next step.</p></div>
+  <div class="card chat">
+    <div class="row" style="justify-content:space-between;padding:14px 16px;border-bottom:1px solid var(--bd)"><div><b>CalmCompanion</b><div class="sub" style="margin:0">Pre-written guide, not a therapist. Saved in this browser only.</div></div><button class="btn" onclick="clearChat()">Clear chat</button></div>
+    <div class="msgs" id="msgs" role="log" aria-live="polite"></div>
+    <div class="starters" id="starters"></div>
+    <form class="cin" onsubmit="event.preventDefault();sendChat(el('cIn').value)"><input type="text" id="cIn" maxlength="500" aria-label="Message" placeholder="Share what’s on your mind…"><button class="btn s" type="submit">Send</button></form>
+  </div>
+</section>
+
+<!-- SUPPORT -->
+<section id="p-support" class="panel">
+  <div class="intro"><h1>24/7 support & helplines</h1><p>You don’t have to carry this alone. If you are in immediate danger, call your local emergency number.</p></div>
+  <div class="card aff"><div class="row" style="justify-content:space-between"><div><h2>Need a pause first?</h2><p class="sub" style="margin:0">A slow breathing cycle can help before you reach out.</p></div><button class="btn s" onclick="show('sanctuary');jump('breathCard')">Try breathing</button></div></div>
+  <div class="help">
+    <div class="card"><h2>India</h2><p class="sub">Free and confidential.</p>
+      <div class="mini"><b>Tele MANAS (Government of India)</b><span>24/7 mental health support in multiple languages.</span><div><a class="call" href="tel:14416">14416</a><a class="call" href="tel:18008914416">1800-891-4416</a></div></div>
+      <div class="mini" style="margin-top:10px"><b>Emergency services</b><span>For immediate danger to life.</span><div><a class="call" href="tel:112">112</a></div></div></div>
+    <div class="card"><h2>Worldwide</h2><p class="sub">Look up a local line for any country.</p>
+      <div class="mini"><b>Find a Helpline</b><span>Directory of free crisis lines by country.</span><div><a class="call" href="https://findahelpline.com" target="_blank" rel="noopener">findahelpline.com</a></div></div>
+      <div class="mini" style="margin-top:10px"><b>US & Canada</b><span>Suicide & Crisis Lifeline: call or text.</span><div><a class="call" href="tel:988">988</a></div></div></div>
+  </div>
+  <p class="sub" style="text-align:center">Numbers can change. Please verify a line before relying on it.</p>
+</section>
+</main>
+<footer>Sanctuary & MindClarity is an educational self-reflection tool. It is not medical advice, diagnosis or treatment.</footer>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+const el=id=>document.getElementById(id);
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function ld(k,d){try{const r=localStorage.getItem(k);return r?JSON.parse(r):d}catch(e){return d}}
+function sv(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+let tT;function toast(m){const t=el('toast');t.textContent=m;t.classList.add('on');clearTimeout(tT);tT=setTimeout(()=>t.classList.remove('on'),2800)}
+function copyText(t,m){const fb=()=>{const a=document.createElement('textarea');a.value=t;a.style.cssText='position:fixed;opacity:0';document.body.appendChild(a);a.select();try{document.execCommand('copy');toast(m)}catch(e){toast('Could not copy automatically')}a.remove()};
+  if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(t).then(()=>toast(m)).catch(fb)}else fb()}
+
+/* NAV */
+const TABS=[['sanctuary','Daily Sanctuary'],['meditation','Meditation & Manifest'],['adhd','ADHD Screener'],['ocd','OCD Screener'],['chat','Chat'],['support','24/7 Helplines']];
+el('nav').innerHTML=TABS.map(t=>`<button role="tab" id="n-${t[0]}" aria-selected="false" onclick="show('${t[0]}')">${t[1]}</button>`).join('');
+function show(id){if(!TABS.some(t=>t[0]===id))id='sanctuary';
+  TABS.forEach(t=>{el('p-'+t[0]).classList.toggle('on',t[0]===id);el('n-'+t[0]).setAttribute('aria-selected',String(t[0]===id))});
+  if(location.hash!=='#'+id)history.replaceState(null,'','#'+id);
+  if(id==='chat')renderChat();window.scrollTo({top:0})}
+function jump(id){setTimeout(()=>{const e=el(id);if(e)e.scrollIntoView({behavior:'smooth',block:'center'})},120)}
+window.addEventListener('hashchange',()=>show(location.hash.slice(1)));
+
+/* AFFIRMATIONS */
+const AFF=[["You do not have to solve your whole life today. Getting through this moment is enough.","Self-compassion"],["Your feelings are weather passing through, not the entire sky.","Perspective"],["Even on days when all you can do is rest, you deserve kindness and care.","Rest"],["Healing is rarely a straight line. Slow steps still count.","Gentle progress"],["You have made it through every hardest day so far. Take it one hour at a time.","Quiet strength"],["It is okay to put down the expectations you are carrying right now.","Release"],["A glass of water, a deep breath, an open window: small acts of care are real wins.","Tiny steps"],["Needing support, rest or reassurance does not make you a burden.","Connection"]];
+let ai=0;function setAff(i){ai=i;el('affQ').textContent='“'+AFF[i][0]+'”';el('affCat').textContent=AFF[i][1]}
+function nextAff(){let n;do{n=Math.floor(Math.random()*AFF.length)}while(n===ai);setAff(n)}
+
+/* BREATHING */
+const BM={'478':{d:'Inhale 4s, hold 7s, exhale 8s to settle a busy nervous system.',p:[['Inhale',4,1.24,1.12],['Hold',7,1.24,1.12],['Exhale',8,.76,.92]]},
+ box:{d:'Inhale, hold, exhale and rest for 4s each to restore a steady rhythm.',p:[['Inhale',4,1.24,1.12],['Hold',4,1.24,1.12],['Exhale',4,.76,.92],['Rest',4,.76,.92]]}};
+let bMode='478',bRun=false,bT=null,bI=null;
+function setBreath(m){bMode=m;el('bm478').classList.toggle('on',m==='478');el('bmbox').classList.toggle('on',m==='box');el('bDesc').textContent=BM[m].d;if(bRun){stopBreath();startBreath()}}
+function toggleBreath(){bRun?stopBreath():startBreath()}
+function startBreath(){bRun=true;el('bBtn').textContent='Pause breathing';phase(0)}
+function stopBreath(){bRun=false;clearTimeout(bT);clearInterval(bI);const o=el('orb'),h=el('halo');o.style.transitionDuration=h.style.transitionDuration='650ms';o.style.transform='scale(.76)';h.style.transform='scale(.92)';el('bPhase').textContent='Ready';el('bTime').textContent='Press start';el('bBtn').textContent='Start breathing'}
+function phase(i){if(!bRun)return;const ps=BM[bMode].p,p=ps[i%ps.length],o=el('orb'),h=el('halo');
+  o.style.transitionDuration=h.style.transitionDuration=p[1]*1000+'ms';o.style.transform='scale('+p[2]+')';h.style.transform='scale('+p[3]+')';
+  el('bPhase').textContent=p[0];let r=p[1];el('bTime').textContent=r+'s';clearInterval(bI);bI=setInterval(()=>{r--;if(r>0)el('bTime').textContent=r+'s'},1000);
+  bT=setTimeout(()=>phase(i+1),p[1]*1000)}
+
+/* GROUNDING */
+const GR=[[5,'things you can see'],[4,'things you can touch or feel'],[3,'sounds you can hear'],[2,'things you can smell'],[1,'thing you can taste, or one slow sip or breath']];
+const gs=GR.map(()=>false);
+function renderGround(){const n=gs.filter(Boolean).length;el('gBar').style.width=n/GR.length*100+'%';
+  el('gList').innerHTML=GR.map((g,i)=>`<button class="item ${gs[i]?'ck':''}" aria-pressed="${gs[i]}" onclick="gs[${i}]=!gs[${i}];renderGround()"><b>${gs[i]?'✓':g[0]}</b><span class="t">Notice ${g[0]} ${g[1]}</span></button>`).join('');
+  el('gOk').classList.toggle('on',n===GR.length)}
+function resetGround(){gs.fill(false);renderGround()}
+
+/* MOOD + GLIMMERS */
+const MOODS=[['Low / Heavy','🌧️','It makes sense to feel heavy when you carry a lot. You can lower your expectations and move gently today.'],['Foggy','🌫️','Fog often means your mind wants rest or less input. Take one small, unhurried step at a time.'],['Neutral','🍃','Neutral is a steady place to be. You don’t need to force excitement.'],['Steady','🌤️','Steady is a good place to stand. Take a moment to notice it.'],['Hopeful','☀️','Let yourself enjoy this light without any pressure.']];
+let mood=null;
+el('moods').innerHTML=MOODS.map((m,i)=>`<button id="mo${i}" onclick="pickMood(${i})"><span style="font-size:1.3rem">${m[1]}</span>${m[0]}</button>`).join('');
+function pickMood(i){mood=MOODS[i];MOODS.forEach((m,j)=>el('mo'+j).classList.toggle('on',i===j));const n=el('moodNote');n.textContent=mood[2];n.classList.add('on')}
+const GK='sanctuary_glimmers_v2';
+function glims(){const g=ld(GK,null);return Array.isArray(g)?g:[{id:1,text:'Taking a few quiet minutes to pause and breathe.',mood:'🍃 Neutral',when:'Starter note'}]}
+function addGlim(e){e.preventDefault();const i=el('glimIn'),t=i.value.trim();if(!t)return;const n=new Date(),g=glims();
+  g.unshift({id:Date.now(),text:t,mood:mood?mood[1]+' '+mood[0]:'🌿 Glimmer',when:n.toLocaleDateString(undefined,{month:'short',day:'numeric'})+' '+n.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})});
+  sv(GK,g);i.value='';renderGlims();toast('Glimmer saved')}
+function delGlim(id){sv(GK,glims().filter(x=>x.id!==id));renderGlims()}
+function renderGlims(){const g=glims();el('glimList').innerHTML=g.length?g.map(x=>`<div class="mini"><div class="serif">“${esc(x.text)}”</div><div class="meta"><span>${esc(x.mood)} · ${esc(x.when)}</span><button class="x" aria-label="Delete glimmer" onclick="delGlim(${x.id})">✕</button></div></div>`).join(''):'<p class="sub">Your journal is clear. Add a small comfort whenever you notice one.</p>'}
+
+/* MEDITATION TIMER */
+let mPre=60,mRem=60,mRun=false,mInt=null,mSnd=true;const CIRC=490.09;
+el('presets').innerHTML=[[1,'1 min reset'],[3,'3 min calm'],[5,'5 min ground'],[10,'10 min stillness']].map(p=>`<button class="pre ${p[0]===1?'on':''}" data-m="${p[0]}" onclick="preset(${p[0]})">${p[1]}</button>`).join('');
+function preset(m){pauseMed(true);mPre=mRem=m*60;document.querySelectorAll('.pre').forEach(b=>b.classList.toggle('on',+b.dataset.m===m));el('mStart').textContent='Start session';el('mStat').textContent='Ready when you are';drawMed()}
+function drawMed(){el('mDisp').textContent=String(Math.floor(mRem/60)).padStart(2,'0')+':'+String(mRem%60).padStart(2,'0');el('mRing').style.strokeDashoffset=CIRC*(1-(mPre?mRem/mPre:0))}
+function toggleMed(){if(mRun){pauseMed();return}if(mRem<=0)mRem=mPre;mRun=true;el('mStart').textContent='Pause session';el('mStat').textContent='Breathe gently…';clearInterval(mInt);
+  mInt=setInterval(()=>{mRem--;drawMed();if(mRem<=0){clearInterval(mInt);mRun=false;mRem=0;drawMed();el('mStart').textContent='Start again';el('mStat').textContent='Session complete';if(mSnd)chime();toast('Session complete. Take a slow breath.')}},1000)}
+function pauseMed(quiet){mRun=false;clearInterval(mInt);if(!quiet){el('mStart').textContent='Resume session';el('mStat').textContent='Paused'}}
+function resetMed(){mRun=false;clearInterval(mInt);mRem=mPre;el('mStart').textContent='Start session';el('mStat').textContent='Ready when you are';drawMed()}
+function toggleSnd(){mSnd=!mSnd;const b=el('mSnd');b.textContent=mSnd?'Chime on':'Chime off';b.setAttribute('aria-pressed',String(mSnd));if(mSnd)chime()}
+function chime(){try{const A=window.AudioContext||window.webkitAudioContext;if(!A)return;const c=new A(),t=c.currentTime;
+  [[528,.14],[792,.05]].forEach(f=>{const o=c.createOscillator(),g=c.createGain();o.type='sine';o.frequency.value=f[0];g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(f[1],t+.08);g.gain.exponentialRampToValueAtTime(.0001,t+2.8);o.connect(g);g.connect(c.destination);o.start(t);o.stop(t+2.9)})}catch(e){}}
+
+const TIPS=[['60 seconds','The 60-second reset','Drop your shoulders, unclench your jaw and take three slow exhales right where you are.','Soften brow, drop shoulders, 3 long exhales.'],
+['Mindset','Wandering minds are normal','Noticing you drifted and gently coming back is the exercise itself, not a failure.','Silently say “thinking” and return to one breath.'],
+['Active calm','Open eyes and movement','If closing your eyes is uncomfortable, rest your gaze on one still object or walk slowly, feeling each foot land.','Rest your eyes on one object about 6 feet away.'],
+['Sound anchor','Listen instead of counting','If breath focus frustrates you, use ambient sound like a fan or birds as waves that rise and fade.','Notice the farthest sound, then the closest.'],
+['Body scan','Gentle release','Sweep attention from head to toes. Notice tension and let it soften instead of forcing it.','Forehead, jaw, hands, stomach, feet.'],
+['Heart practice','Kind phrases','When self-criticism is loud, silently repeat a warm wish on each exhale without forcing a feeling.','“May I feel safe. May I be gentle with myself today.”']];
+el('tips').innerHTML=TIPS.map(t=>`<div class="mini"><span class="tag" style="align-self:flex-start">${t[0]}</span><h3 style="font-size:1.05rem">${t[1]}</h3><p>${t[2]}</p><div class="cue">${t[3]}</div></div>`).join('');
+const GUIDES=[['3-6-9 scripting','Write one present-tense intention 3 times in the morning, 6 in the afternoon and 9 before sleep.'],['Future-self 5-sense scene','Spend 60 seconds picturing an ordinary, peaceful day months from now: what you see, hear and feel.'],['Gratitude “I get to” reframe','Anchor your intention in what already supports you. Swap “I have to” for “I get to”.'],['Aligned micro-action bridge','Attach each intention to one 2-to-10 minute action you can do today.'],['Evening release & trust','Before sleep, write one worry you’re setting down and one thing you welcome tomorrow.']];
+el('guides').innerHTML=GUIDES.map(g=>`<div class="mini"><h3 style="font-size:1.02rem">${g[0]}</h3><p>${g[1]}</p></div>`).join('');
+el('iTech').innerHTML=GUIDES.map(g=>`<option>${esc(g[0])}</option>`).join('');
+
+const IK='sanctuary_intentions_v2';
+function ints(){const i=ld(IK,null);return Array.isArray(i)?i:[{id:101,tech:'Aligned micro-action bridge',text:'I am welcoming calm clarity and steady energy into my everyday routine.',act:'Take 5 slow breaths before starting work.',reps:1,when:'Starter note'}]}
+function addInt(e){e.preventDefault();const t=el('iTxt').value.trim();if(!t)return;const l=ints();
+  l.unshift({id:Date.now(),tech:el('iTech').value,text:t,act:el('iAct').value.trim(),reps:1,when:new Date().toLocaleDateString(undefined,{month:'short',day:'numeric'})});
+  sv(IK,l);el('iTxt').value='';el('iAct').value='';renderInts();toast('Intention saved')}
+function repInt(id){const l=ints(),t=l.find(x=>x.id===id);if(t){t.reps++;sv(IK,l);renderInts();toast('Logged '+t.reps+'×')}}
+function delInt(id){sv(IK,ints().filter(x=>x.id!==id));renderInts()}
+function renderInts(){const l=ints();el('ints').innerHTML=l.length?l.map(x=>`<div class="mini"><span class="tag" style="align-self:flex-start">${esc(x.tech)}</span><div class="serif">“${esc(x.text)}”</div>${x.act?`<div class="cue">Tiny step: ${esc(x.act)}</div>`:''}<div class="meta"><span>Practiced ${x.reps}× · ${esc(x.when)}</span><span><button class="x" onclick="repInt(${x.id})">+1</button><button class="x" aria-label="Delete intention" onclick="delInt(${x.id})">✕</button></span></div></div>`).join(''):'<p class="sub">No intentions yet. Write one when you feel ready.</p>'}
+
+/* SCREENERS */
+const SC={
+adhd:{title:'Adult ADHD self-reflection (12 items)',scale:['Never','Rarely','Sometimes','Often','Very often'],
+ cats:{a:['Inattention & executive function',24],h:['Hyperactivity & impulsivity',24]},
+ q:[['a','How often do you have trouble wrapping up the final details of a project once the hard parts are done?'],['a','How often do you have difficulty getting things in order for a task that requires organization?'],['a','How often do you have problems remembering appointments or obligations?'],['a','When a task needs a lot of thought, how often do you avoid or delay starting?'],['a','How often are you distracted by activity, noise or unrelated thoughts?'],['a','How often do you misplace things or have trouble finding them?'],['h','How often do you fidget or squirm when you have to sit for a long time?'],['h','How often do you feel overly active, as if driven by a motor?'],['h','How often do you leave your seat where you are expected to stay seated?'],['h','How often do you have difficulty unwinding and relaxing in your free time?'],['h','How often do you finish other people’s sentences before they do?'],['h','How often do you have difficulty waiting your turn?']],
+ tiers:[[.33,'Low indicators','Few frequent traits associated with adult ADHD. Occasional distraction or restlessness is normal, especially in busy or tiring weeks.',['Note which habits, sleep and workspaces help your focus most.','Break overwhelming tasks into one 10-minute starting step.','If changes are recent, consider sleep, stress and burnout.']],
+ [.62,'Mild-to-moderate indicators','Several recurring patterns in focus, task initiation or restlessness. These can overlap with ADHD, stress, anxiety or poor sleep.',['Note when focus or restlessness is hardest over 1–2 weeks.','Use external supports: visual checklists, calendar alerts, simple routines.','Share this summary with a doctor or psychologist to ask whether an evaluation would help.']],
+ [9,'Elevated indicators','Frequent, consistent patterns across attention, executive function or restlessness. Many adults find clarity by discussing these with an ADHD-informed clinician.',['Use “Copy summary for doctor” to prepare notes for an appointment.','See a psychiatrist or clinical psychologist experienced in adult ADHD.','Reflect on whether similar traits showed up in childhood; clinicians often ask.']]]},
+ocd:{title:'OCD self-reflection (10 items)',scale:['None','Mild','Moderate','Severe','Extreme'],
+ cats:{o:['Intrusive thoughts (obsessions)',16],c:['Repetitive urges & actions (compulsions)',16],t:['Time spent & interference',8]},
+ q:[['o','How often do you have unwanted, repetitive thoughts, doubts or images that are hard to dismiss?'],['o','How much distress do these intrusive thoughts cause when they appear?'],['o','How often do you have persistent fears of contamination, making a mistake or causing harm?'],['o','How distressed do you feel when things are not symmetrical or “just right”?'],['c','How often do you feel driven to repeat actions (checking, washing, touching) until it feels safe?'],['c','How often do you do silent mental rituals (reviewing, counting, repeating phrases) to ease anxiety?'],['c','How often do you seek repeated reassurance from others or online to relieve doubt?'],['c','How uncomfortable do you feel if prevented from completing a habit or routine?'],['t','On a typical day, how much time do repetitive thoughts or urges take?'],['t','How much do these thoughts or routines interfere with work, relationships, rest or peace of mind?']],
+ tiers:[[.3,'Low indicators','Little sign of obsessive-compulsive loops. Occasional double-checking or odd passing thoughts are common.',['An occasional unwanted thought is a normal quirk of how brains work.','Let passing thoughts exist without needing to solve them.','If a worry starts to feel sticky or exhausting, talk to a counselor early.']],
+ [.6,'Mild-to-moderate indicators','Noticeable patterns of sticky doubts, reassurance-seeking or routines that use up mental energy. A mental health professional can help clarify whether OCD or anxiety is involved.',['Label the loop without judging: “this is an anxious doubt asking for certainty”.','Jot down recurring themes to describe to a therapist.','Consider a therapist trained in ERP or CBT.']],
+ [9,'Elevated indicators','Significant time and distress spent on intrusive thoughts and repetitive behaviors or mental rituals. OCD is highly treatable and specialist support can bring real relief.',['Use “Copy summary for doctor” to bring notes to a psychiatrist or OCD-specialist therapist.','Look for clinicians trained in Exposure and Response Prevention (ERP).','Intrusive thoughts attach to what you care about. They do not define you.']]]}};
+const SS={adhd:{i:0,a:[],done:false},ocd:{i:0,a:[],done:false}};
+function pick(id,v){const s=SS[id],c=SC[id];s.a[s.i]=v;el(id+'-err')&&el(id+'-err').classList.remove('on');rS(id);if(s.i<c.q.length-1)setTimeout(()=>{s.i++;rS(id)},200)}
+function go(id,i){SS[id].i=i;rS(id)}
+function score(id){const c=SC[id],s=SS[id],cs={};Object.keys(c.cats).forEach(k=>cs[k]=0);let t=0;c.q.forEach((q,i)=>{const v=s.a[i]||0;t+=v;cs[q[0]]+=v});
+  const max=c.q.length*4,r=t/max,tier=c.tiers.find(x=>r<=x[0]);return{t,max,cs,tier}}
+function finish(id){const s=SS[id],c=SC[id],miss=c.q.map((q,i)=>s.a[i]===undefined?i:-1).filter(i=>i>=0);
+  if(miss.length){s.i=miss[0];rS(id);const e=el(id+'-err');e.textContent='Please answer every question first ('+miss.length+' left).';e.classList.add('on');return}
+  s.done=true;rS(id);el('m-'+id).scrollIntoView({behavior:'smooth',block:'start'})}
+function retake(id){SS[id]={i:0,a:[],done:false};rS(id)}
+function docSummary(id){const c=SC[id],s=SS[id],r=score(id),L=['SELF-REFLECTION SUMMARY (for clinical discussion)',c.title,'Date: '+new Date().toLocaleDateString(undefined,{year:'numeric',month:'long',day:'numeric'}),'Overall: '+r.t+' / '+r.max+' ('+r.tier[1]+')','','Sub-scores:'];
+  Object.keys(c.cats).forEach(k=>L.push('- '+c.cats[k][0]+': '+r.cs[k]+' / '+c.cats[k][1]));L.push('','Responses:');
+  c.q.forEach((q,i)=>L.push((i+1)+'. '+q[1],'   '+c.scale[s.a[i]]+' ('+s.a[i]+'/4)'));L.push('','Not a clinical diagnosis.');copyText(L.join('\n'),'Summary copied')}
+function rS(id){const c=SC[id],s=SS[id],m=el('m-'+id),b=id==='adhd'?'s':'l';
+  if(s.done){const r=score(id);
+    m.innerHTML=`<div class="hero"><span class="tag">${r.tier[1]}</span><h3>${c.title}: summary</h3><p><b>Total ${r.t} / ${r.max}</b></p><p style="margin-top:6px">${r.tier[2]}</p></div>
+    ${Object.keys(c.cats).map(k=>`<div class="sc"><span>${c.cats[k][0]}</span><span>${r.cs[k]} / ${c.cats[k][1]}</span></div><div class="bar"><i style="width:${Math.round(r.cs[k]/c.cats[k][1]*100)}%"></i></div>`).join('')}
+    <h3 style="font-size:1.05rem;margin:16px 0 8px">Gentle next steps</h3><ol style="padding-left:20px;display:grid;gap:6px;font-size:.9rem">${r.tier[3].map(x=>`<li>${x}</li>`).join('')}</ol>
+    <div class="warn" style="margin:16px 0">Scores highlight patterns worth discussing. They cannot diagnose ${id.toUpperCase()}. Stress, burnout, poor sleep and anxiety can overlap.</div>
+    <div class="row"><button class="btn ${b}" onclick="docSummary('${id}')">Copy summary for doctor</button><button class="btn" onclick="retake('${id}')">Retake</button><button class="btn" onclick="show('support')">Helplines</button></div>`;return}
+  const n=s.a.filter(v=>v!==undefined).length,tot=c.q.length,q=c.q[s.i],last=s.i===tot-1;
+  m.innerHTML=`<h2>${c.title}</h2>
+  <div class="row" style="justify-content:space-between;margin:10px 0 6px;font-size:.83rem;font-weight:600;color:var(--tx2)"><span>Answered ${n} of ${tot}</span><span>${Math.round(n/tot*100)}%</span></div>
+  <div class="bar"><i style="width:${n/tot*100}%"></i></div>
+  <div class="dots">${c.q.map((x,i)=>`<button class="${s.a[i]!==undefined?'a':''} ${i===s.i?'cur':''}" aria-label="Question ${i+1}" onclick="go('${id}',${i})">${i+1}</button>`).join('')}</div>
+  <div class="q"><span class="tag">${c.cats[q[0]][0]}</span><p>${s.i+1}. ${q[1]}</p>
+  <div class="likert" role="group" aria-label="Answer options">${c.scale.map((l,v)=>`<button class="${s.a[s.i]===v?'on':''}" aria-pressed="${s.a[s.i]===v}" onclick="pick('${id}',${v})">${l}</button>`).join('')}</div></div>
+  <div class="err" id="${id}-err" role="alert"></div>
+  <div class="nav2"><button class="btn" ${s.i===0?'disabled':''} onclick="go('${id}',${s.i-1})">Previous</button>
+  ${last?`<button class="btn ${b}" onclick="finish('${id}')">View summary</button>`:`<button class="btn ${b}" onclick="go('${id}',${s.i+1})">Next</button>`}</div>`}
+
+/* CHAT */
+const CK='sanctuary_chat_v2';let typing=false;
+const WELCOME=()=>[{s:'b',t:'Hi, I’m CalmCompanion. I can point you to the tools here, explain the screeners, or suggest a gentle next step. I’m a pre-written guide, not a therapist.\n\nWhat would help right now?',a:[['Try breathing','breath'],['ADHD screener','adhd'],['OCD screener','ocd'],['Meditation','meditation']]}];
+function chatH(){const h=ld(CK,null);return Array.isArray(h)&&h.length?h:WELCOME()}
+const STARTERS=[['Feeling overwhelmed','I am feeling heavy and overwhelmed today.'],['ADHD vs OCD?','What is the difference between ADHD and OCD, and how do the screeners work?'],['Racing thoughts','How do I meditate when my thoughts keep racing?'],['Manifestation steps','Can you share a grounded manifestation technique?'],['Talking to a doctor','How should I prepare to talk to a doctor about my results?'],['Need a helpline','I need support or helpline numbers right now.']];
+el('starters').innerHTML=STARTERS.map((s,i)=>`<button type="button" class="chip" onclick="sendChat(STARTERS[${i}][1])">${s[0]}</button>`).join('');
+function act(k){if(k==='breath'){show('sanctuary');jump('breathCard')}else if(k==='ground'){show('sanctuary');jump('gList')}else if(k==='glim'){show('sanctuary');jump('glimIn')}else if(k==='manifest'){show('meditation');jump('iTxt')}else show(k)}
+function reply(q){q=q.toLowerCase();
+ if(/suicid|self.?harm|hurt myself|end my life|kill myself|can.?t go on|don.?t want to live/.test(q))return{t:'I’m really glad you said something. You deserve support right now, from a real person. In India you can call Tele MANAS at 14416 or 1800-891-4416 (free, 24/7), or 112 if you are in immediate danger. In the US or Canada, call or text 988. Elsewhere, findahelpline.com lists local lines.\n\nIf you can, tell someone near you that you are struggling, and stay with them until you feel safer.',a:[['Open helplines','support']]};
+ if(/helpline|support|crisis|emergency|hotline/.test(q))return{t:'Free, confidential support is available any time. You’ll find Tele MANAS (14416), emergency 112 and a worldwide directory on the helplines page.',a:[['Open helplines','support']]};
+ if(/overwhelm|heavy|sad|low|burnout|burnt|anxi|tired|exhaust|numb|lonely|alone|stress/.test(q))return{t:'When things feel heavy, shrinking the horizon to the next few minutes can help. You don’t have to fix your whole week today.\n\nYou could try a slow breathing cycle, the 5-4-3-2-1 grounding steps, or write down one tiny comfort. If this feels like more than a bad patch, talking to someone you trust or a professional is a good next step.',a:[['Guided breathing','breath'],['5-4-3-2-1 grounding','ground'],['Tiny glimmers','glim'],['Helplines','support']]};
+ if(/doctor|therapist|psychiatrist|psycholog|appointment|diagnos|clinician|evaluat/.test(q))return{t:'Concrete examples help more than trying to explain everything from memory: when it happens, how long it has gone on, and how it affects sleep, work or relationships.\n\nAfter either screener, “Copy summary for doctor” gives you scores and responses to paste into your notes.',a:[['ADHD screener','adhd'],['OCD screener','ocd']]};
+ if(/adhd|ocd|screener|score|test|focus|distract|intrusive|compulsion|ritual|checking/.test(q))return{t:'Both screeners are educational tools, not diagnoses. They help you notice patterns and prepare for a clinician.\n\n• ADHD patterns centre on attention, task initiation, executive function, restlessness or impulsivity.\n• OCD patterns centre on unwanted intrusive thoughts (obsessions) and repetitive urges or rituals (compulsions) that relieve distress or doubt.',a:[['ADHD screener','adhd'],['OCD screener','ocd']]};
+ if(/meditat|mindful|racing|wander|sit still|timer|chime/.test(q))return{t:'Meditation isn’t about a blank mind. Noticing that you wandered and coming back once is a full repetition.\n\nIf sitting still is hard, try a 1-to-3-minute timer, keep your eyes softly open on one point, or focus on your feet on the floor.',a:[['Meditation timer & tips','meditation'],['Box breathing','breath']]};
+ if(/manifest|intention|script|visuali|goal|future|affirm/.test(q))return{t:'Grounded manifestation pairs a clear present-tense intention with calm and one small action you control today. Try 3-6-9 scripting or a future-self scene, and attach a 5-minute step so hope stays tied to reality.',a:[['Intention studio','manifest']]};
+ return{t:'Thanks for sharing that. We can take it one small step at a time: a calming exercise, a self-reflection screener, or you can tell me more about what you’re dealing with.',a:[['Daily Sanctuary','breath'],['Meditation','meditation'],['Helplines','support']]}}
+function sendChat(t){t=(t||'').trim();if(!t||typing)return;const h=chatH();h.push({s:'u',t});sv(CK,h.slice(-60));el('cIn').value='';typing=true;renderChat();
+  setTimeout(()=>{const r=reply(t),h2=chatH();h2.push({s:'b',t:r.t,a:r.a});sv(CK,h2.slice(-60));typing=false;renderChat()},500)}
+function clearChat(){sv(CK,WELCOME());renderChat();toast('Chat cleared')}
+function renderChat(){const m=el('msgs');
+  m.innerHTML=chatH().map(x=>`<div class="m ${x.s}"><div class="bub">${esc(x.t).replace(/\n/g,'<br>')}</div>${x.a&&x.a.length?`<div>${x.a.map(a=>`<button type="button" class="chip" onclick="act('${a[1]}')">${esc(a[0])}</button>`).join('')}</div>`:''}</div>`).join('')+(typing?'<div class="m b"><div class="bub">…</div></div>':'');
+  m.scrollTop=m.scrollHeight}
+
+/* INIT */
+setAff(0);setBreath('478');renderGround();renderGlims();drawMed();renderInts();rS('adhd');rS('ocd');renderChat();
+show(location.hash.slice(1)||'sanctuary');
+</script>
+</body>
+</html>
